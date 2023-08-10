@@ -80,7 +80,7 @@ public class Echo3DHologram : MonoBehaviour
         //Load entries specified
         foreach (Entry entry in queryData.getEntries())
         {
-            Echo3DService.instance.DownloadAndInstantiate(entry, queryURL, this.gameObject, ignoreModelTransforms, disableRemoteTransformations);
+            Echo3DService.instance.DownloadAndInstantiate(entry, queryURL, this.gameObject, ignoreModelTransforms, disableRemoteTransformations, false);
         }
 
 

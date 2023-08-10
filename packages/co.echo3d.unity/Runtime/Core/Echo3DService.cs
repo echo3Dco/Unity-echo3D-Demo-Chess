@@ -146,13 +146,16 @@ public class Echo3DService : MonoBehaviour
             }
         }
     }
-    public void DownloadAndInstantiate(Entry entry, string serverURL, GameObject targetParent, bool zeroTransforms, bool disableRemoteTransformations)
+    public void DownloadAndInstantiate(Entry entry, string serverURL, GameObject targetParent, bool zeroTransforms, bool disableRemoteTransformations, bool clearExistingHolos)
     {
         if (benchmarkStart == 0)
         {
             benchmarkStart = Time.time;
         }
-        ClearExistingHologram(targetParent);
+        if (clearExistingHolos)
+        {
+            ClearExistingHologram(targetParent);
+        }
         // Get hologram type
         Hologram.hologramType hologramType = entry.getHologram().getType();
         // Handle model hologram
@@ -287,7 +290,7 @@ public class Echo3DService : MonoBehaviour
             // Parse new entry
             Entry entry = ParseEntryToDB(JSON.Parse(message), ref target.queryData);
             // Download and instantiate content
-            DownloadAndInstantiate(entry, target.queryURL, target.gameObject, target.ignoreModelTransforms, target.disableRemoteTransformations);
+            DownloadAndInstantiate(entry, target.queryURL, target.gameObject, target.ignoreModelTransforms, target.disableRemoteTransformations, true);
         });
         WClient.On(WClient.EventType.DELETE_ENTRY.ToString(), (string message) =>
         {
