@@ -66,10 +66,26 @@ public class BoardManager : MonoBehaviourSingleton<BoardManager> {
 
 	public void CreateAndPlacePieceGO(Piece piece, Square position) {
 		string modelName = $"{piece.Owner} {piece.GetType().Name}";
-		GameObject pieceGO = Instantiate(
-			Resources.Load("PieceSets/Marble/" + modelName) as GameObject,
-			positionMap[position].transform
-		);
+		// Create chess piece
+		GameObject pieceNew = new GameObject(modelName + " from echo3D");
+		// Add echo3D script
+		pieceNew.AddComponent<Echo3DHologram>().apiKey = "sparkling-grass-4638";
+		// Set name
+		pieceNew.GetComponentInChildren<Echo3DHologram>().tags = piece.GetType().Name;
+		// Set transform
+		// pieceNew.transform.localScale = Vector3.one * 0.22f;
+		pieceNew.transform.parent = positionMap[position].transform;
+		pieceNew.transform.position = positionMap[position].transform.position;
+		// Set color
+		// if (String.Compare($"{piece.Owner}", "White") > 0)
+		// 	pieceNew.GetComponent<MeshRenderer>().material.color = Color.white;
+		// else
+		// 	pieceNew.GetComponent<MeshRenderer>().material.color = Color.black;
+
+		// GameObject pieceGO = Instantiate(
+		// 	Resources.Load("PieceSets/Marble/" + modelName) as GameObject,
+		// 	positionMap[position].transform
+		// );
 
 		/*if (!(piece is Knight) && !(piece is King)) {
 			pieceGO.transform.Rotate(0f, (float) rng.NextDouble() * 360f, 0f);
