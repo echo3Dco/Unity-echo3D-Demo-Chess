@@ -40,9 +40,10 @@ public class BoardManager : MonoBehaviourSingleton<BoardManager> {
 		ClearBoard();
 		
 		foreach ((Square square, Piece piece) in GameManager.Instance.CurrentPieces) {
+			// if (!piece.GetType().Name.Contains("Bishop")) continue;
 			CreateAndPlacePieceGO(piece, square);
 			// break;
-			// if (piece.GetType().Name.Contains("Knight")) break;
+			// if (piece.GetType().Name.Contains("Bishop")) break;
 		}
 
 		EnsureOnlyPiecesOfSideAreEnabled(GameManager.Instance.SideToMove);
