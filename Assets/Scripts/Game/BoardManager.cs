@@ -41,6 +41,8 @@ public class BoardManager : MonoBehaviourSingleton<BoardManager> {
 		
 		foreach ((Square square, Piece piece) in GameManager.Instance.CurrentPieces) {
 			CreateAndPlacePieceGO(piece, square);
+			// break;
+			// if (piece.GetType().Name.Contains("Knight")) break;
 		}
 
 		EnsureOnlyPiecesOfSideAreEnabled(GameManager.Instance.SideToMove);
@@ -66,6 +68,7 @@ public class BoardManager : MonoBehaviourSingleton<BoardManager> {
 
 	public void CreateAndPlacePieceGO(Piece piece, Square position) {
 		string modelName = $"{piece.Owner} {piece.GetType().Name}";
+
 		// Create chess piece
 		GameObject pieceNew = new GameObject(modelName + " from echo3D");
 		// Add echo3D script
@@ -76,11 +79,6 @@ public class BoardManager : MonoBehaviourSingleton<BoardManager> {
 		// pieceNew.transform.localScale = Vector3.one * 0.22f;
 		pieceNew.transform.parent = positionMap[position].transform;
 		pieceNew.transform.position = positionMap[position].transform.position;
-		// Set color
-		// if (String.Compare($"{piece.Owner}", "White") > 0)
-		// 	pieceNew.GetComponent<MeshRenderer>().material.color = Color.white;
-		// else
-		// 	pieceNew.GetComponent<MeshRenderer>().material.color = Color.black;
 
 		// GameObject pieceGO = Instantiate(
 		// 	Resources.Load("PieceSets/Marble/" + modelName) as GameObject,

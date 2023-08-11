@@ -39,12 +39,29 @@ public class CustomBehaviour : MonoBehaviour
             this.gameObject.name = value;
         }
 
+        // Set color
+        if (this.gameObject.transform.parent.name.Contains("White")){
+            colorValue = Color.white;
+        }
+        else {
+            colorValue = Color.black;
+        }
+
         Echo3DService.HologramStart();
     }
+
+    Color colorValue;
+    bool colorSet = false;
 
     // Update is called once per frame
     void Update()
     {
-
+        if (this.gameObject.GetComponentInChildren<MeshRenderer>() && !colorSet){
+            this.gameObject.GetComponentInChildren<MeshRenderer>().material.color = colorValue;
+            colorSet = true;
+            // Rotate white pieces
+            if (colorValue == Color.white)
+                this.gameObject.transform.GetChild(0).transform.Rotate(0, -180, 0, Space.Self);
+        }
     }
 }
